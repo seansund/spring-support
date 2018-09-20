@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging.support;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +21,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
+
+import com.ibm.cloud_garage.logging.support.HttpRequestWrapper;
 
 @DisplayName("HttpRequestWrapper")
 public class HttpRequestWrapperTest {

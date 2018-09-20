@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,16 +28,19 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-import com.ibm.cloud_garage.logging.RequestResponseLogger;
+import com.ibm.cloud_garage.logging.InboundLoggingFilter;
+import com.ibm.cloud_garage.logging.support.RequestResponseLogger;
+import com.ibm.cloud_garage.logging.support.HttpRequestWrapper;
+import com.ibm.cloud_garage.logging.support.ResettableHttpServletRequest;
 
 @DisplayName("LoggingFilter")
-public class LoggingFilterTest {
-    private LoggingFilter classUnderTest;
+public class InboundLoggingFilterTest {
+    private InboundLoggingFilter classUnderTest;
     private RequestResponseLogger loggerMock;
 
     @BeforeEach
     public void setup() {
-        LoggingFilter original = new LoggingFilter();
+        InboundLoggingFilter original = new InboundLoggingFilter();
 
         loggerMock = mock(RequestResponseLogger.class);
         ReflectionTestUtils.setField(original, "delegate", loggerMock);

@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging.support;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,6 +23,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.util.ContentCachingResponseWrapper;
+
+import com.ibm.cloud_garage.logging.support.ClientHttpResponseWrapper;
 
 @DisplayName("ClientHttpResponseWrapper")
 public class ClientHttpResponseWrapperTest {

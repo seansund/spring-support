@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging.support;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

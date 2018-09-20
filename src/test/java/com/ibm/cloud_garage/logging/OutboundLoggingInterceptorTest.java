@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.outbound;
+package com.ibm.cloud_garage.logging;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,16 +18,17 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.ibm.cloud_garage.logging.RequestResponseLogger;
+import com.ibm.cloud_garage.logging.OutboundLoggingInterceptor;
+import com.ibm.cloud_garage.logging.support.RequestResponseLogger;
 
 @DisplayName("LoggingInterceptor")
-public class LoggingInterceptorTest {
-    LoggingInterceptor classUnderTest;
+public class OutboundLoggingInterceptorTest {
+    OutboundLoggingInterceptor classUnderTest;
     RequestResponseLogger delegateMock;
 
     @BeforeEach
     public void setup() {
-        classUnderTest = new LoggingInterceptor();
+        classUnderTest = new OutboundLoggingInterceptor();
 
         delegateMock = mock(RequestResponseLogger.class);
         ReflectionTestUtils.setField(classUnderTest, "delegate", delegateMock);

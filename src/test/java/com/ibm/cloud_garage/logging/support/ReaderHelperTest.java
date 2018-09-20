@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging.support;
 
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.*;
@@ -13,13 +13,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import com.ibm.cloud_garage.logging.support.ReaderHelper;
 
 @DisplayName("ReaderHelper")
 public class ReaderHelperTest {

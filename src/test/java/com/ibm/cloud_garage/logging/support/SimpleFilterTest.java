@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging.support;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import com.ibm.cloud_garage.logging.support.SimpleFilter;
 
 @DisplayName("SimpleFilter")
 public class SimpleFilterTest {

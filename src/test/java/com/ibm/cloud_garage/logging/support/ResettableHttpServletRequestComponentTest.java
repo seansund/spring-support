@@ -1,6 +1,6 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging.support;
 
-import static com.ibm.cloud_garage.logging.inbound.ReaderHelper.readerToString;
+import static com.ibm.cloud_garage.logging.support.ReaderHelper.readerToString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -16,6 +16,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import com.ibm.cloud_garage.logging.support.ResettableHttpServletRequest;
 
 
 @Tag("component")

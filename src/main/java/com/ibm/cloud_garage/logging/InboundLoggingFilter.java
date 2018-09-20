@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -13,16 +13,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-import com.ibm.cloud_garage.logging.RequestResponseLogger;
-import com.ibm.cloud_garage.logging.RequestResponseLoggerImpl;
+import com.ibm.cloud_garage.logging.support.ClientHttpResponseWrapper;
+import com.ibm.cloud_garage.logging.support.HttpRequestWrapper;
+import com.ibm.cloud_garage.logging.support.ReaderHelper;
+import com.ibm.cloud_garage.logging.support.RequestResponseLogger;
+import com.ibm.cloud_garage.logging.support.RequestResponseLoggerImpl;
+import com.ibm.cloud_garage.logging.support.ResettableHttpServletRequest;
+import com.ibm.cloud_garage.logging.support.SimpleFilter;
 
 @Component
-public class LoggingFilter implements SimpleFilter {
-    private static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
+public class InboundLoggingFilter implements SimpleFilter {
+    private static final Logger logger = LoggerFactory.getLogger(InboundLoggingFilter.class);
 
     private final RequestResponseLogger delegate;
 
-    public LoggingFilter() {
+    public InboundLoggingFilter() {
         this.delegate = new RequestResponseLoggerImpl(logger);
     }
 

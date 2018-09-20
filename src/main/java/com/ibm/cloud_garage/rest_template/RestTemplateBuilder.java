@@ -21,7 +21,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import com.ibm.cloud_garage.http.HttpConnectionKeepAliveStrategy;
-import com.ibm.cloud_garage.logging.outbound.LoggingInterceptor;
+import com.ibm.cloud_garage.logging.OutboundLoggingInterceptor;
 
 public class RestTemplateBuilder {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateBuilder.class);
@@ -89,7 +89,7 @@ public class RestTemplateBuilder {
     }
 
     protected List<ClientHttpRequestInterceptor> buildInterceptors(ClientHttpRequestInterceptor loggingInterceptor) {
-        return Arrays.asList(Optional.ofNullable(loggingInterceptor).orElse(new LoggingInterceptor()));
+        return Arrays.asList(Optional.ofNullable(loggingInterceptor).orElse(new OutboundLoggingInterceptor()));
     }
 
     public void close(RestTemplate restTemplate) {

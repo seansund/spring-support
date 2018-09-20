@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging;
+package com.ibm.cloud_garage.logging.support;
 
 import java.util.Objects;
 

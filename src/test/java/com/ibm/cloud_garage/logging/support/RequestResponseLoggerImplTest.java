@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging;
+package com.ibm.cloud_garage.logging.support;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -33,6 +33,11 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import com.ibm.cloud_garage.logging.support.LoggingContext;
+import com.ibm.cloud_garage.logging.support.RequestLoggingContext;
+import com.ibm.cloud_garage.logging.support.RequestResponseLoggerImpl;
+import com.ibm.cloud_garage.logging.support.ResponseLoggingContext;
 
 @DisplayName("RequestResponseLogger")
 public class RequestResponseLoggerImplTest {

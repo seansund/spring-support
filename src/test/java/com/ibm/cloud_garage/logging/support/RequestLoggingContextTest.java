@@ -1,8 +1,7 @@
-package com.ibm.cloud_garage.logging;
+package com.ibm.cloud_garage.logging.support;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,43 +11,42 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 
-@DisplayName("ResponseLoggingContext")
-public class ResponseLoggingContextTest {
+import com.ibm.cloud_garage.logging.support.RequestLoggingContext;
+
+@DisplayName("RequestLoggingContext")
+public class RequestLoggingContextTest {
     String url = "url";
-    String statusCode = "status";
-    String statusText = "text";
+    String method = "method";
     HttpHeaders headers = new HttpHeaders();
     Object body = "body";
+    RequestLoggingContext classUnderTest;
 
-    private ResponseLoggingContext classUnderTest;
-
-    ResponseLoggingContext copyClassUnderTest() {
-        return new ResponseLoggingContext(classUnderTest);
+    RequestLoggingContext copyClassUnderTest() {
+        return new RequestLoggingContext(classUnderTest);
     }
 
     @BeforeEach
     public void setup() {
-        headers.add("key", "value");
+        headers.add("test", "value");
 
-        classUnderTest = new ResponseLoggingContext()
+        classUnderTest = new RequestLoggingContext()
                 .withUrl(url)
-                .withStatusCode(statusCode)
-                .withStatusText(statusText)
+                .withMethod(method)
                 .withHeaders(headers)
                 .withBody(body);
     }
 
     @Nested
-    @DisplayName("Given constructor")
+    @DisplayName("Given constructor()")
     class GivenConstructor {
         @Nested
         @DisplayName("When `context` is null")
         class WhenContextIsNull {
             @Test
-            @DisplayName("Then throw exception")
-            void thenThrowException() {
+            @DisplayName("Then throw IllegalArgumentException")
+            void thenThrowIllegalArgumentException() {
                 assertThrows(IllegalArgumentException.class, () -> {
-                    new ResponseLoggingContext(null);
+                    new RequestLoggingContext(null);
                 });
             }
         }
@@ -64,8 +62,7 @@ public class ResponseLoggingContextTest {
             @DisplayName("Then return values")
             void thenReturnValues() {
                 assertEquals(url, classUnderTest.getUrl());
-                assertEquals(statusCode, classUnderTest.getStatusCode());
-                assertEquals(statusText, classUnderTest.getStatusText());
+                assertEquals(method, classUnderTest.getMethod());
                 assertEquals(headers, classUnderTest.getHeaders());
                 assertEquals(body, classUnderTest.getBody());
             }
@@ -86,8 +83,8 @@ public class ResponseLoggingContextTest {
         }
 
         @Nested
-        @DisplayName("When value is the same instance")
-        class WhenValueIsTheSameInstance {
+        @DisplayName("When value is same instance")
+        class WhenValueIsSameInstance {
             @Test
             @DisplayName("Then return true")
             void thenReturnTrue() {
@@ -106,42 +103,36 @@ public class ResponseLoggingContextTest {
         }
 
         @Nested
-        @DisplayName("When value is the same type")
-        class WhenValueIsTheSameType {
+        @DisplayName("When value is same type")
+        class WhenValueIsSameType {
             @Test
             @DisplayName("Then same values should return true")
             void thenSameValuesShouldReturnTrue() {
-                assertEquals(classUnderTest, copyClassUnderTest());
+                assertTrue(classUnderTest.equals(copyClassUnderTest()));
             }
 
             @Test
             @DisplayName("Then different `url` should return false")
             void thenDifferentUrlShouldReturnFalse() {
-                assertNotEquals(classUnderTest, copyClassUnderTest().withUrl(null));
+                assertFalse(classUnderTest.equals(copyClassUnderTest().withUrl(null)));
             }
 
             @Test
-            @DisplayName("Then different `statusCode` should return false")
-            void thenDifferentStatusCodeShouldReturnFalse() {
-                assertNotEquals(classUnderTest, copyClassUnderTest().withStatusCode(null));
+            @DisplayName("Then different `method` should return false")
+            void thenDifferentMethodShouldReturnFalse() {
+                assertFalse(classUnderTest.equals(copyClassUnderTest().withMethod(null)));
             }
 
             @Test
-            @DisplayName("Then different statusText should return false")
-            void thenDifferentStatusTextShouldReturnFalse() {
-                assertNotEquals(classUnderTest, copyClassUnderTest().withStatusText(null));
-            }
-
-            @Test
-            @DisplayName("Then different headers should return false")
+            @DisplayName("Then different `headers` should return false")
             void thenDifferentHeadersShouldReturnFalse() {
-                assertNotEquals(classUnderTest, copyClassUnderTest().withHeaders(null));
+                assertFalse(classUnderTest.equals(copyClassUnderTest().withHeaders(null)));
             }
 
             @Test
-            @DisplayName("Then different body should return false")
+            @DisplayName("Then different `body` should return false")
             void thenDifferentBodyShouldReturnFalse() {
-                assertNotEquals(classUnderTest, copyClassUnderTest().withBody(null));
+                assertFalse(classUnderTest.equals(copyClassUnderTest().withBody(null)));
             }
         }
     }
@@ -162,8 +153,8 @@ public class ResponseLoggingContextTest {
         }
 
         @Nested
-        @DisplayName("When same values are provided")
-        class WhenSameValuesAreProvided {
+        @DisplayName("When same values provided")
+        class WhenSameValuesProvided {
             @Test
             @DisplayName("Then return same hashCode")
             void thenReturnSameHashCode() {
@@ -182,22 +173,12 @@ public class ResponseLoggingContextTest {
         }
 
         @Nested
-        @DisplayName("When different `statusCode` provided")
-        class WhenDifferentStatusCodeProvided {
+        @DisplayName("When different `method` provided")
+        class WhenDifferentMethodProvided {
             @Test
             @DisplayName("Then return different hashCode")
             void thenReturnDifferentHashCode() {
-                assertHashCodesNotEqual(copyClassUnderTest().withStatusCode(null));
-            }
-        }
-
-        @Nested
-        @DisplayName("When different `statusText` provided")
-        class WhenDifferentStatusTextProvided {
-            @Test
-            @DisplayName("Then return different hashCode")
-            void thenReturnDifferentHashCode() {
-                assertHashCodesNotEqual(copyClassUnderTest().withStatusText(null));
+                assertHashCodesNotEqual(copyClassUnderTest().withMethod(null));
             }
         }
 
@@ -222,4 +203,3 @@ public class ResponseLoggingContextTest {
         }
     }
 }
-

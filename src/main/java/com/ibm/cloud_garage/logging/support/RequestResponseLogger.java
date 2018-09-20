@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging;
+package com.ibm.cloud_garage.logging.support;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpResponse;

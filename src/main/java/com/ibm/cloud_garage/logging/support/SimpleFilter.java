@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.inbound;
+package com.ibm.cloud_garage.logging.support;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;

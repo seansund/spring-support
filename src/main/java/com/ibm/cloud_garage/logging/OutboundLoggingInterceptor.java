@@ -1,4 +1,4 @@
-package com.ibm.cloud_garage.logging.outbound;
+package com.ibm.cloud_garage.logging;
 
 import java.io.IOException;
 
@@ -9,15 +9,15 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
-import com.ibm.cloud_garage.logging.RequestResponseLogger;
-import com.ibm.cloud_garage.logging.RequestResponseLoggerImpl;
+import com.ibm.cloud_garage.logging.support.RequestResponseLogger;
+import com.ibm.cloud_garage.logging.support.RequestResponseLoggerImpl;
 
-public class LoggingInterceptor implements ClientHttpRequestInterceptor {
-    private static Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
+public class OutboundLoggingInterceptor implements ClientHttpRequestInterceptor {
+    private static Logger logger = LoggerFactory.getLogger(OutboundLoggingInterceptor.class);
 
     private final RequestResponseLogger delegate;
 
-    public LoggingInterceptor() {
+    public OutboundLoggingInterceptor() {
         this.delegate = new RequestResponseLoggerImpl(logger);
     }
 

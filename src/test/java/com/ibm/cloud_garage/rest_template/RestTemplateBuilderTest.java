@@ -34,7 +34,7 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 
-import com.ibm.cloud_garage.logging.outbound.LoggingInterceptor;
+import com.ibm.cloud_garage.logging.OutboundLoggingInterceptor;
 
 @DisplayName("RestTemplateBuilder")
 public class RestTemplateBuilderTest {
@@ -253,20 +253,20 @@ public class RestTemplateBuilderTest {
     class GivenBuildInterceptors {
         @Nested
         @DisplayName("When loggingInterceptor is null")
-        class WhenLoggingInterceptorIsNull {
+        class WhenOutboundLoggingInterceptorIsNull {
             @Test
             @DisplayName("Then return default LoggingInterceptor")
             void thenReturnDefaultLoggingInterceptor() {
                 List<ClientHttpRequestInterceptor> interceptorList = classUnderTest.buildInterceptors(null);
 
                 assertFalse(interceptorList.isEmpty());
-                assertTrue(interceptorList.get(0) instanceof LoggingInterceptor);
+                assertTrue(interceptorList.get(0) instanceof OutboundLoggingInterceptor);
             }
         }
 
         @Nested
         @DisplayName("When loggingInterceptor is not null")
-        class WhenLoggingInterceptorIsNotNull {
+        class WhenOutboundLoggingInterceptorIsNotNull {
             @Test
             @DisplayName("Then return loggingInterceptor")
             void thenReturnLoggingInterceptor() {
