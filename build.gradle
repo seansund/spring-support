@@ -13,7 +13,7 @@ plugins {
     id "com.adarshr.test-logger" version "1.6.0"
 }
 
-group = 'com.ibm.garage_catalyst'
+group = 'io.github.seansund'
 version = new JsonSlurper().parseText(new File('./package.json').text).version ?: '0.0.0';
 
 ext {
