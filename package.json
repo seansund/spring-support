@@ -6,11 +6,16 @@
   "silent": true,
   "scripts": {
     "clean": "./gradlew clean",
-    "test": "./gradlew test"
+    "test": "./gradlew test",
+    "push": "./gradlew publish",
+    "push:release": "./gradlew closeAndReleaseRepository",
+    "pushAndRelease": "npm run push && npm run push:release",
+    "push:local": "./gradlew publishToMavenLocal"
   },
+  "homepage": "https://github.com/seansund/spring-support",
   "repository": {
     "type": "git",
-    "url": "git@github.ibm.com:seansund/spring-support.git"
+    "url": "git@github.com:seansund/spring-support.git"
   },
   "author": "",
   "license": "ISC"

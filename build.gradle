@@ -11,10 +11,19 @@ plugins {
     id 'java'
     id 'maven-publish'
     id "com.adarshr.test-logger" version "1.6.0"
+    id "io.codearte.nexus-staging" version "0.20.0"
 }
 
+def npmPackage = new JsonSlurper().parseText(new File('./package.json').text);
+
 group = 'io.github.seansund'
-version = new JsonSlurper().parseText(new File('./package.json').text).version ?: '0.0.0';
+version = npmPackage.version ?: '0.0.0'
+
+def appName = npmPackage.name
+def appDescription = npmPackage.description
+def license = npmPackage.license
+def homepage = npmPackage.homepage
+def repoUrl = npmPackage.repository.url
 
 ext {
     springVersion = '5.0.9.RELEASE'
@@ -99,33 +108,33 @@ task integrationTest(type: Test) {
 publishing {
     repositories {
         maven {
-            // change to point to your repo, e.g. http://my.org/repo
-            url = "$buildDir/repo"
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = nexusUsername
+                password = nexusPassword
+            }
         }
     }
     publications {
         mavenJava(MavenPublication) {
+            from components.java
             pom {
-                name = 'My Library'
-                description = 'A concise description of my library'
-                url = 'http://www.example.com/library'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
+                name = "${appName}".toString()
+                description = "${appDescription}".toString()
+                url = "${homepage}".toString()
                 developers {
                     developer {
-                        id = 'johnd'
-                        name = 'John Doe'
-                        email = 'john.doe@example.com'
+                        id = 'seansund'
+                        name = 'Sean Sundberg'
+                        email = 'seansund@us.ibm.com'
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://example.com/my-library.git'
-                    developerConnection = 'scm:git:ssh://example.com/my-library.git'
-                    url = 'http://example.com/my-library/'
+                    connection = "scm:git:${repoUrl}".toString()
+                    developerConnection = "scm:git:${repoUrl}".toString()
+                    url = "${homepage}".toString()
                 }
             }
         }
