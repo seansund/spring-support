@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "description": "Utilities for SpringBoot applications (logging, api documentation, etc)",
   "main": "index.js",
+  "silent": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "./gradlew clean",
+    "test": "./gradlew test"
   },
   "repository": {
     "type": "git",
